@@ -1,13 +1,13 @@
 # Top Trumps with GSAP Animations
 
-This project is a digital version of the classic Top Trumps card game enhanced with smooth GSAP animations.
+This project is a digital version of the classic Top Trumps card game, now enhanced with GSAP-powered UI polish.
 
-## 🎮 Game Features
-
-- **4 Different Decks**: SciFi Vessels, Fierce Creatures, Dinosaurs, British Monarchs
-- **Smooth Animations**: Card flips, reveals, winner celebrations, and more
-- **Interactive UI**: Hover effects, button animations, and responsive design
-- **Classic Gameplay**: Compare categories, win cards, be the last player standing
+## 🎮 Features
+- 4 Different Decks: SciFi Vessels, Fierce Creatures, Dinosaurs, British Monarchs
+- Classic Top Trumps gameplay
+- Responsive, mobile-friendly layout
+- **GSAP-powered entrance and button effects** for a modern, interactive feel
+- CSS-powered 3D card flip for the CPU card (robust and hardware-accelerated)
 
 ## 🚀 How to Run
 
@@ -27,109 +27,46 @@ npx http-server -p 8080
 ```
 Then visit `http://localhost:8080`
 
-## 🎨 GSAP Animations Added
-
-### Page Load Animations
-- Welcome box slides in from top
-- Deck selection dropdown scales in with bounce effect
-- Start button appears with elastic animation
-
-### Card Animations
-- **Card Reveal**: Cards slide in from left and right with rotation
-- **Card Flip**: Smooth 3D flip animation for CPU card
-- **Shuffle Effect**: Cards rotate and scale during shuffle
-- **Data Reveal**: Card information fades in with stagger effect
-
-### Interactive Animations
-- **Category Buttons**: Hover effects with scale and color changes
-- **Button Clicks**: Scale down effect on all buttons
-- **Winner Celebration**: Winning card scales up with sparkle effect
-- **Message Animations**: Smooth fade transitions for game messages
-
-### Game Flow Animations
-- **Start Game**: Shuffle animation followed by card reveal
-- **Round Results**: Winner animations with visual feedback
-- **Game Over**: Container scales down with final message highlight
+## ✨ GSAP Animations Used
+- **Welcome Modal Entrance:** Slides in and fades in on page load
+- **Button Hover/Click Effects:** All `.btn` and `.categoryBtn` buttons scale, glow, and animate smoothly on hover and click
+- **(Not used for card flip):** The card flip is handled by CSS for best performance and reliability
 
 ## 🛠️ Technical Implementation
 
-### Files Structure
+### File Structure
 ```
 ├── index.html              # Main HTML file
-├── css/style.css           # Styling
+├── css/style.css           # Styling and responsive layout
 ├── js/
 │   ├── app.js             # Main game logic
 │   ├── decks.js           # Card data and deck definitions
-│   └── gsap-animations.js # GSAP animation functions
+│   └── gsap-animations.js # GSAP animation functions (entrance, buttons)
 └── Assets/Images/         # Card images for all decks
 ```
 
 ### GSAP Integration
-- **CDN Loading**: GSAP loaded from CDN for easy setup
-- **Modular Design**: Animations separated into dedicated file
-- **Fallback Support**: Animations gracefully degrade if GSAP fails to load
-- **Performance Optimized**: Uses GSAP's efficient animation engine
-
-## 🎯 Animation Examples
-
-### Card Flip Animation
-```javascript
-gsap.to(computerCard, {
-    duration: 0.6,
-    rotationY: 180,
-    ease: 'power2.inOut'
-});
-```
-
-### Winner Celebration
-```javascript
-gsap.to(winnerCard, {
-    duration: 0.5,
-    scale: 1.1,
-    rotation: 5,
-    ease: 'power2.out',
-    yoyo: true,
-    repeat: 2
-});
-```
-
-### Staggered Data Reveal
-```javascript
-gsap.fromTo(cardDataElements,
-    { opacity: 0, y: 20 },
-    {
-        duration: 0.5,
-        opacity: 1,
-        y: 0,
-        stagger: 0.1,
-        ease: 'power2.out'
-    }
-);
-```
+- **CDN Loading:** GSAP loaded from CDN for easy setup
+- **Button and entrance effects only:** No GSAP for card flip (CSS is more robust for 3D flip)
+- **Clean, maintainable code:** Only relevant animation code is included
 
 ## 🎮 How to Play
-
-1. **Select a Deck**: Choose from SciFi Vessels, Fierce Creatures, Dinosaurs, or British Monarchs
-2. **Start Game**: Click "Start Game" to shuffle and deal cards
-3. **Choose Category**: Click on a category button on your card
-4. **Compare Values**: Higher value wins the round
-5. **Win Cards**: Winner takes both cards
-6. **Continue**: Click "Next Hand" to play the next round
-7. **Win the Game**: Be the last player with cards!
-
-## 🔧 Customization
-
-You can easily modify animations by editing `js/gsap-animations.js`:
-
-- **Duration**: Change animation speed
-- **Easing**: Modify animation curves
-- **Effects**: Add new visual effects
-- **Timing**: Adjust animation delays and sequences
+1. **Select a Deck:** Choose from SciFi Vessels, Fierce Creatures, Dinosaurs, or British Monarchs
+2. **Start Game:** Click "Start Game" to shuffle and deal cards
+3. **Choose Category:** Click on a category button on your card
+4. **Compare Values:** Higher value wins the round
+5. **Win Cards:** Winner takes both cards
+6. **Continue:** Click "Next Hand" to play the next round
+7. **Win the Game:** Be the last player with cards!
 
 ## 📱 Browser Compatibility
-
 - Modern browsers with ES6+ support
-- GSAP 3.12.2+ required
+- GSAP 3.12.2+ required (via CDN)
 - Responsive design for mobile and desktop
 
-Enjoy your enhanced Top Trumps experience with smooth GSAP animations! 🎉 
+## 📝 Notes
+- The card flip is handled by CSS for best performance and cross-browser support.
+- GSAP is used for UI polish: entrance and button effects.
+- For more advanced GSAP animation (e.g., sequenced card flips), see the GSAP docs.
+
+Enjoy your enhanced Top Trumps experience with smooth GSAP-powered UI! 🎉 

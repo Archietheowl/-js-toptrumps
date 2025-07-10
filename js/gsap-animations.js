@@ -79,31 +79,6 @@ function initializeButtonAnimations() {
 }
 
 /**
- * (Stub) Animate CPU card flip. (Currently handled by CSS)
- */
-function animateCardFlip() {}
-
-/**
- * (Stub) Animate both cards entering the play area. (Not implemented yet)
- */
-function animateCardReveal() {}
-
-/**
- * (Stub) Animate category button hover/click. (Not implemented yet)
- */
-function initializeCategoryAnimations() {}
-
-/**
- * (Stub) Animate winner card celebration. (Not implemented yet)
- */
-function animateWinner() {}
-
-/**
- * (Stub) Animate card data reveal. (Not implemented yet)
- */
-function animateCardData() {}
-
-/**
  * Animate message box content change (currently just sets innerHTML).
  * @param {string} message - The message to display.
  */
@@ -141,16 +116,6 @@ function animateStartButtonAppear() {
 }
 
 /**
- * (Stub) Animate card shuffle. (Not implemented yet)
- */
-function animateShuffle() {}
-
-/**
- * (Stub) Animate game over state. (Not implemented yet)
- */
-function animateGameOver() {}
-
-/**
  * Animate the welcome box fading out and sliding up when starting the game.
  * Returns a Promise that resolves when the animation completes.
  * @returns {Promise<void>}
@@ -167,18 +132,12 @@ function fadeOutWelcomeBox() {
     });
 }
 
-// Export all animation functions for use in app.js
+// Export only the actually used animation functions
 window.GSAPAnimations = {
     initializeAnimations,
-    animateCardFlip,
-    animateCardReveal,
-    initializeCategoryAnimations,
-    animateWinner,
-    animateCardData,
+    initializeButtonAnimations,
     animateMessage,
     animateButton,
-    animateShuffle,
-    animateGameOver,
     fadeOutWelcomeBox,
     animateStartButtonAppear
 }; 
