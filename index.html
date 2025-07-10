@@ -1,191 +1,192 @@
 <!DOCTYPE html>
+<!--
+  index.html - Main entry point for Top Trumps app
+  - Loads CSS, GSAP, decks, and app logic
+  - Contains the main game UI and welcome modal
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CardTrumps</title>
+    <!-- Main stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Game data and logic -->
     <script defer src="./js/decks.js"></script>
+    <script defer src="./js/gsap-animations.js"></script>
     <script defer src="./js/app.js"></script>
+    <!-- Google Fonts -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&family=Bebas+Neue&family=Lexend:wght@100..900&family=Sigmar+One&display=swap');
     </style>
 </head>
-    <body>
-        <div class="how-to-play-box">
-            <h2>Welcome to Card Trumps</h2><button name= "close-btn" class="btn" id="close-btn">X</button>
-            <h3>How to Play</h3>
-            <ul>
-                <li><strong>Starting the Game:</strong> 
-                    <ol>
-                        <li>Choose your deck from the dropdown menu.</li>
-                        <li>Click "Start Game" to shuffle and deal the cards.</li>
-                        <li>The computer will pick at random who has the first turn.</li>
-                    </ol>
-                </li>
-                <li><strong>Taking Turns:</strong> Choose a category on your card; the CPU selects randomly. Higher value wins. After each hand, click "Next Hand" button to play the next hand.</li>
-                <li><strong>Winning and Draws:</strong> Winner takes both cards. Draws go into a pot, claimed by the next round’s winner.</li>
-                <li><strong>Game End:</strong> The game continues until one player has all the cards and wins. Alternatively, clicking "End Game" manually determines the winner based on who has the most cards.</li>
-            </ul>
-            <div class = "deck-selection-dropdown">
-                <label for="select-deck">Select the deck you would like to play with</label>
-                <select name="select-deck" id="select-deck">
-                    <option value="" selected>SELECT YOUR DECK</option>
-                    <option value="scifiVessels">SciFi Vessels</option>
-                    <option value="fierceAnimals">Fierce Creatures</option>
-                    <option value="dinosaurs">Dinosaurs</option>
-                    <option value="britishMonarchs">British Monarchs</option>
-                </select>
+<body>
+    <!-- Welcome/How To Play Modal -->
+    <div class="how-to-play-box">
+        <h2>Welcome to Card Trumps</h2><button name= "close-btn" class="btn" id="close-btn">X</button>
+        <h3>How to Play</h3>
+        <ul>
+            <li><strong>Starting the Game:</strong> 
+                <ol>
+                    <li>Choose your deck from the dropdown menu.</li>
+                    <li>Click "Start Game" to shuffle and deal the cards.</li>
+                    <li>The computer will pick at random who has the first turn.</li>
+                </ol>
+            </li>
+            <li><strong>Taking Turns:</strong> Choose a category on your card; the CPU selects randomly. Higher value wins. After each hand, click "Next Hand" button to play the next hand.</li>
+            <li><strong>Winning and Draws:</strong> Winner takes both cards. Draws go into a pot, claimed by the next round's winner.</li>
+            <li><strong>Game End:</strong> The game continues until one player has all the cards and wins. Alternatively, clicking "End Game" manually determines the winner based on who has the most cards.</li>
+        </ul>
+        <!-- Deck selection and start button -->
+        <div class = "deck-selection-dropdown">
+            <label for="select-deck">Select the deck you would like to play with</label>
+            <select name="select-deck" id="select-deck">
+                <option value="" selected>SELECT YOUR DECK</option>
+                <option value="scifiVessels">SciFi Vessels</option>
+                <option value="fierceAnimals">Fierce Creatures</option>
+                <option value="dinosaurs">Dinosaurs</option>
+                <option value="britishMonarchs">British Monarchs</option>
+            </select>
+        </div>
+        <div class="buttons-group">
+            <button class="btn" id="start-game">
+                Start Game
+            </button>
+        </div>
+        <!-- <p>Click the "X" to close this guide and start playing!</p> -->
+    </div>
+    <!-- Main game area -->
+    <div class="card-container">
+        <!-- Player card -->
+        <div class="player-card card" id="p1Card">
+            <div class="card-title" id="p1Title">
+                Card Title
             </div>
-            <div class="buttons-group">
-                <button class="btn" id="start-game">
-                    Start Game
+            <div class="card-image" id="p1Img">
+                <img src="Assets/Images/place-holder-image.jpg" alt="place holder image">
+            </div>
+            <div class="card-data-area">
+                <!-- Player card categories and values -->
+                <div class="card-row">
+                    <div class="card-category">
+                        <button class="categoryBtn" id="p1Cat1">Test</button>
+                    </div>
+                    <div class="card-data" id="p1Info1">
+                        -
+                    </div>
+                </div>
+                <div class="card-row">
+                    <div class="card-category">
+                        <button class="categoryBtn" id="p1Cat2">Test</button>
+                    </div>
+                    <div class="card-data"  id="p1Info2">
+                        -
+                    </div>  
+                </div>
+                <div class="card-row">
+                    <div class="card-category">
+                        <button class="categoryBtn" id="p1Cat3">Test</button>
+                    </div>
+                    <div class="card-data" id="p1Info3">
+                        -
+                    </div>
+                </div>
+                <div class="card-row">
+                    <div class="card-category">
+                        <button class="categoryBtn" id="p1Cat4">Test</button>
+                    </div>
+                    <div class="card-data" id="p1Info4">
+                        -
+                    </div>
+                </div>
+                <div class="card-row">
+                    <div class="card-category">
+                        <button class="categoryBtn" id="p1Cat5">Test</button>
+                    </div>
+                    <div class="card-data" id="p1Info5">
+                        -
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Message and controls area -->
+        <div class="message-and-button-area">
+            <div class="message-box">
+                <p id="message"></p>
+                <button name="next-hand" class="btn" id="nextHandBtn">
+                    Next Hand
                 </button>
             </div>
-            <!-- <p>Click the “X” to close this guide and start playing!</p> -->
-        </div>
-        <!-- <div class="header">
-            <div>
-                <img src="Assets/Images/Blob Shape.png" alt="decorative">
-                <h1>Card Trumps</h1>
+            <div class="buttons-group">
+                <button class="btn" id="end-game">
+                    End Game
+                </button>
+                <button name=how-to-play-btn class="btn" id="how-to-play-btn">
+                    How To Play
+                </button>
             </div>
-            <img src="Assets/Images/Starsplash.png" alt="decorative">
-            <img src="Assets/Images/TTCardLogo-noBG.png" alt="game logo of three cards in a fan: green, purple, orange">
-        </div> -->
-        <div class="card-container">
-            <div class="player-card card" id="p1Card">
-                <div class="card-title" id="p1Title">
-                    Card Title
+        </div>
+        <!-- CPU card -->
+        <div class="computer-card card">
+            <div class="cpu-card-front card-face front">
+                <div class="card-title" id="cpuTitle">
+                    Title
                 </div>
-                <div class="card-image" id="p1Img">
+                <div class="card-image" id="cpuImg">
                     <img src="Assets/Images/place-holder-image.jpg" alt="place holder image">
                 </div>
                 <div class="card-data-area">
                     <div class="card-row">
                         <div class="card-category">
-                            <button class="categoryBtn" id="p1Cat1">Test</button>
+                            <p class="cpu-category" id="cpuCat1">_</p>
                         </div>
-                        <div class="card-data" id="p1Info1">
+                        <div class="card-data" id="cpuInfo1">
                             -
                         </div>
                     </div>
                     <div class="card-row">
                         <div class="card-category">
-                            <button class="categoryBtn" id="p1Cat2">Test</button>
+                            <p class="cpu-category" id="cpuCat2">_</p>
                         </div>
-                        <div class="card-data"  id="p1Info2">
-                            -
-                        </div>  
-                    </div>
-                    <div class="card-row">
-                        <div class="card-category">
-                            <button class="categoryBtn" id="p1Cat3">Test</button>
-                        </div>
-                        <div class="card-data" id="p1Info3">
+                        <div class="card-data" id="cpuInfo2">
                             -
                         </div>
                     </div>
                     <div class="card-row">
                         <div class="card-category">
-                            <button class="categoryBtn" id="p1Cat4">Test</button>
+                            <p class="cpu-category" id="cpuCat3">_</p>
                         </div>
-                        <div class="card-data" id="p1Info4">
+                        <div class="card-data" id="cpuInfo3">
                             -
                         </div>
                     </div>
                     <div class="card-row">
                         <div class="card-category">
-                            <button class="categoryBtn" id="p1Cat5">Test</button>
+                            <p class="cpu-category" id="cpuCat4">_</p>
                         </div>
-                        <div class="card-data" id="p1Info5">
+                        <div class="card-data" id="cpuInfo4">
+                            -
+                        </div>
+                    </div>
+                    <div class="card-row">
+                        <div class="card-category">
+                            <p class="cpu-category" id="cpuCat5">_</p>
+                        </div>
+                        <div class="card-data" id="cpuInfo5">
                             -
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="message-and-button-area">
-                <div class="message-box">
-                    <p id="message"></p>
-                    <button name="next-hand" class="btn" id="nextHandBtn">
-                        Next Hand
-                    </button>
-                </div>
-                <div class="buttons-group">
-                    <button class="btn" id="end-game">
-                        End Game
-                    </button>
-                    <button name=how-to-play-btn class="btn" id="how-to-play-btn">
-                        How To Play
-                    </button>
-                </div>
+            <!-- Card back for CPU (hidden until revealed) -->
+            <div class="cpu-card-back card-face back">
+                <h1>Card Trumps</h1>
+                <img src="Assets/Images/TTCardLogo-noBG.png" alt="logo showing 3 fanned out cards of different colours.">
             </div>
-            <div class="computer-card card">
-                <!-- <div class="computer-card"> -->
-                <div class="cpu-card-front card-face front">
-                    <div class="card-title" id="cpuTitle">
-                        Title
-                    </div>
-                    <div class="card-image" id="cpuImg">
-                        <img src="Assets/Images/place-holder-image.jpg" alt="place holder image">
-                    </div>
-                    <div class="card-data-area">
-                        <div class="card-row">
-                            <div class="card-category">
-                                <p class="cpu-category" id="cpuCat1">_</p>
-                            </div>
-                            <div class="card-data" id="cpuInfo1">
-                                -
-                            </div>
-                        </div>
-                        <div class="card-row">
-                            <div class="card-category">
-                                <p class="cpu-category" id="cpuCat2">_</p>
-                            </div>
-                            <div class="card-data" id="cpuInfo2">
-                                -
-                            </div>
-                        </div>
-                        <div class="card-row">
-                            <div class="card-category">
-                                <p class="cpu-category" id="cpuCat3">_</p>
-                            </div>
-                            <div class="card-data" id="cpuInfo3">
-                                -
-                            </div>
-                        </div>
-                        <div class="card-row">
-                            <div class="card-category">
-                                <p class="cpu-category" id="cpuCat4">_</p>
-                            </div>
-                            <div class="card-data" id="cpuInfo4">
-                                -
-                            </div>
-                        </div>
-                        <div class="card-row">
-                            <div class="card-category">
-                                <p class="cpu-category" id="cpuCat5">_</p>
-                            </div>
-                            <div class="card-data" id="cpuInfo5">
-                                -
-                            </div>
-                        </div>
-                        <!-- <div class="card-info-box">
-                            <div class="special-info" id="cpuCat6">
-                                Card Info
-                            </div>
-                            <div class="card-info" id="cpuInfo6">
-                                -
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
-                <div class="cpu-card-back card-face back">
-                    <h1>Card Trumps</h1>
-                    <img src="Assets/Images/TTCardLogo-noBG.png" alt="logo showing 3 fanned out cards of different colours.">
-                </div>
-                <!-- </div> -->
-            </div>
-        </div>    
-    </body>
+        </div>
+    </div>    
+</body>
 </html>
 

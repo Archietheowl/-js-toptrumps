@@ -61,7 +61,11 @@ function sleep(ms) {
 
 //Dsiplay Game Status Messages
 const handleMessages = () => {
-    messageBox.innerHTML = message
+    if (window.GSAPAnimations) {
+        window.GSAPAnimations.animateMessage(message);
+    } else {
+        messageBox.innerHTML = message
+    }
 }
 
 // Show/Hide and Enable/Disable Game Control Buttons (Form of input validation and to help direct flow of gameplay)
@@ -88,15 +92,21 @@ const hideStartBtn = () => {
 }
 
 const showStartBtn = () => {
-    document.getElementById('start-game').style.display = "block"
+    const startButton = document.getElementById('start-game');
+    startButton.style.display = "block";
+    
+    // Animate the start button when it appears
+    if (window.GSAPAnimations) {
+        window.GSAPAnimations.animateStartButtonAppear();
+    }
 }
 
 //  Card flip affect
 const revealCpuCard = () => {
-    document.querySelector('.computer-card').classList.remove('flip')
+    document.querySelector('.computer-card').classList.remove('flip');
 }
 const hideCpuCard = () => {
-    document.querySelector('.computer-card').classList.add('flip')
+    document.querySelector('.computer-card').classList.add('flip');
 }
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Main Game Logic >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // +++++++++++++++++++++++++++++++++++++ GAME PLAY FUNCTIONS +++++++++++++++++++++++++++++++++++++
@@ -139,6 +149,11 @@ const init = () => {
     handleHowToPlay()
     hideNextHandBtn()
     revealCpuCard()
+    
+    // Initialize GSAP animations
+    if (window.GSAPAnimations) {
+        window.GSAPAnimations.initializeCategoryAnimations();
+    }
 }
 init()
 
@@ -168,7 +183,17 @@ const whoStarts = () => {
     return whosTurn;
 }
 
-const handleStartGame = () => {
+const handleStartGame = async () => {
+    // Animate button click
+    if (window.GSAPAnimations) {
+        window.GSAPAnimations.animateButton('start-game');
+    }
+    
+    // Fade out welcome box and wait for it to complete
+    if (window.GSAPAnimations) {
+        await window.GSAPAnimations.fadeOutWelcomeBox();
+    }
+    
     handleHowToPlay()
     playGame = true
     getCategories()
@@ -177,6 +202,15 @@ const handleStartGame = () => {
     deal();
     whosTurn = whoStarts(players);
     hideCpuCard();
+    
+    // Animate card reveal and shuffle
+    if (window.GSAPAnimations) {
+        window.GSAPAnimations.animateShuffle();
+        setTimeout(() => {
+            window.GSAPAnimations.animateCardReveal();
+        }, 500);
+    }
+    
     // handleHowToPlay();
     handleGamePlay(whosTurn, playGame);
     hideStartBtn() //Resetting the start button to ensure that on subsequent games the user flow stays robust
@@ -202,9 +236,18 @@ const renderCardInfo = () => {
             }
         }
     });
+    
+    // Animate card data reveal
+    if (window.GSAPAnimations) {
+        window.GSAPAnimations.animateCardData();
+    }
 }
 
 // ------------------------ Handle P1 Input & Functions ------------------------------
+/**
+ * Wait for player to select a category, then resolve with their choice.
+ * @returns {Promise<{SelectedKey: string, playerSelected: any, cpuSelected: any}>}
+ */
 async function handleP1Input() {
     return new Promise((resolve) => {
         categorySelection.forEach((categoryBtn) => {
@@ -226,6 +269,10 @@ async function handleP1Input() {
 
 
  // ----------------------  Handle  CPU Selection & Functions ---------------------------
+/**
+ * CPU randomly selects a category.
+ * @returns {Promise<{SelectedKey: string, cpuSelected: any, playerSelected: any}>}
+ */
 async function handleCpuSelection() {
     keysArray = Object.keys(cpuCardData);
     valuesArray = Object.values(cpuCardData);
@@ -239,6 +286,10 @@ async function handleCpuSelection() {
 }
 
 // Require a user input after result before moving on to the next hand
+/**
+ * Wait for user to click Next Hand button before continuing.
+ * @returns {Promise<void>}
+ */
 async function handleNextHand() {
     return new Promise((resolve)=>{
         const nextHandBtn = document.querySelector("#nextHandBtn");
@@ -289,6 +340,11 @@ const result = () => {
             You won this hand! <br><br>
             Ready to play the next hand? Click Below`
         whosTurn = p1
+        
+        // Animate winner
+        if (window.GSAPAnimations) {
+            window.GSAPAnimations.animateWinner('p1');
+        }
     } else if (handleString(playerSelected) < handleString(cpuSelected)) {
         winDrawCards(cpuDeck)
         cpuDeck.push(cpuDeck.shift())
@@ -301,6 +357,11 @@ const result = () => {
             You lost this hand!  <br><br>
             Ready to play the next hand? Click Below`
         whosTurn = cpu
+        
+        // Animate winner
+        if (window.GSAPAnimations) {
+            window.GSAPAnimations.animateWinner('cpu');
+        }
     } else {
         drawContainer.push(p1Deck.shift());
         drawContainer.push(cpuDeck.shift());
@@ -389,6 +450,12 @@ const handleEndGame = () => {
         Page Will Fresh in 10 seconds`
     }
     handleMessages(message)
+    
+    // Animate game over
+    if (window.GSAPAnimations) {
+        window.GSAPAnimations.animateGameOver();
+    }
+    
     sleep(10000).then(() => { init() });
 }
 
